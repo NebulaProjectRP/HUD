@@ -1,0 +1,5 @@
+UnlitGeneric{
+    "$basetexture" "nebularp/ui/lid"
+    "$vertexcolor" "1"
+    "$vertexalpha" "1"
+}
