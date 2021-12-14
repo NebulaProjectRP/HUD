@@ -27,7 +27,9 @@ function NebulaHUD:DrawLocalPlayer()
     
     surface.SetDrawColor(36, 139, 212)
     surface.DrawTexturedRect(62, ScrH() - 64, 149 * percent, 10)
-    draw.SimpleText(RPExtraTeams[ply:Team()].name, NebulaUI:Font(24), 26, ScrH() - 92, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+    if (RPExtraTeams and RPExtraTeams[ply:Team()]) then
+        draw.SimpleText(RPExtraTeams[ply:Team()].name, NebulaUI:Font(24), 26, ScrH() - 92, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+    end
 
     local money = tostring(DarkRP.formatMoney(ply:getDarkRPVar("money")))
     local space = 0
