@@ -62,8 +62,8 @@ function NebulaHUD:DrawWeaponInfo()
     local tx, _ = 0, 0
     
     tx, _ = surface.GetTextSize(name)
-    if (tx > 238) then
-        while(tx > 238) do
+    if (tx > 230) then
+        while(tx > 230) do
             fontSize = fontSize - 1
             surface.SetFont(NebulaUI:Font(fontSize, true))
             tx, _ = surface.GetTextSize(name)
