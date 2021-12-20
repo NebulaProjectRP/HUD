@@ -1,0 +1,5 @@
+UnlitGeneric{
+    "$basetexture" "nebularp/ui/weaponback"
+    "$vertexcolor" "1"
+    "$vertexalpha" "1"
+}
