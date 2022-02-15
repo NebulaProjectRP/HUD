@@ -70,6 +70,8 @@ function NebulaHUD:DrawWeaponInfo()
         end
     end
 
+    AUTOICON_DRAWWEAPONSELECTION(wep, ScrW() - 94 - self.Margin, ScrH() - 148 - self.Margin, 86, 86, 255)
+
     draw.SimpleText(name, NebulaUI:Font(fontSize, true), ScrW() - (self.Margin + 8), ScrH() - (46 + self.Margin), Color(223, 49, 133), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
     surface.SetDrawColor(Color(255, 255, 255, 200))
     surface.DrawRect(ScrW() - (self.Margin + 238), ScrH() - (36 + self.Margin), 230, 1)
@@ -79,17 +81,17 @@ function NebulaHUD:DrawWeaponInfo()
     local totalAmmo = LocalPlayer():GetAmmoCount(wep:GetPrimaryAmmoType())
 
     if (ammo <= 0 and totalAmmo <= 0) then
-        draw.SimpleText("NO AMMO", NebulaUI:Font(36, true), ScrW() - (self.Margin + 10), ScrH() - (self.Margin + 78), Color(255, 255, 255, 50), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
+        draw.SimpleText("NO AMMO", NebulaUI:Font(32, true), ScrW() - (self.Margin + 10 + 84), ScrH() - (self.Margin + 78), Color(255, 255, 255, 50), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
     elseif (ammo != -1 and totalAmmo > 0) then
-        local tx, _ = draw.SimpleText(totalAmmo, NebulaUI:Font(40, true), ScrW() - (self.Margin + 10), ScrH() - (self.Margin + 74), Color(255, 255, 255, 100), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
-        draw.SimpleText(ammo .. "/", NebulaUI:Font(28, true), ScrW() - (self.Margin + 12 + tx), ScrH() - (self.Margin + 78), Color(255, 255, 255, 255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
+        local tx, _ = draw.SimpleText(totalAmmo, NebulaUI:Font(40, true), ScrW() - (self.Margin + 10 + 84), ScrH() - (self.Margin + 74), Color(255, 255, 255, 100), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
+        draw.SimpleText(ammo .. "/", NebulaUI:Font(28, true), ScrW() - (self.Margin + 12 + tx + 84), ScrH() - (self.Margin + 78), Color(255, 255, 255, 255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
 
         local amount = ammo / maxammo
         local pulse = math.cos(RealTime() * 8)
         draw.RoundedBox(8, ScrW() - (self.Margin + 238), ScrH() - (self.Margin + 26), 230, 16, Color(0, 0, 0, 255))
         draw.RoundedBox(8, ScrW() - (self.Margin + 238), ScrH() - (self.Margin + 26), 230 * math.Clamp(amount, 0, 1), 16, amount < .35 and Color(255, 150 + 105 * pulse, 150 + 105 * pulse) or Color(220, 220, 220))
     elseif (ammo == -1 and totalAmmo > 0) then
-        draw.SimpleText(totalAmmo, NebulaUI:Font(42, true), ScrW() - (self.Margin + 10), ScrH() - (self.Margin + 74), Color(255, 255, 255, 255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
+        draw.SimpleText(totalAmmo, NebulaUI:Font(42, true), ScrW() - (self.Margin + 10 + 80), ScrH() - (self.Margin + 74), Color(255, 255, 255, 255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
     end
 end
 
