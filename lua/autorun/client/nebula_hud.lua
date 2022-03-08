@@ -82,7 +82,7 @@ function NebulaHUD:DrawWeaponInfo()
 
     if (ammo <= 0 and totalAmmo <= 0) then
         draw.SimpleText("NO AMMO", NebulaUI:Font(32, true), ScrW() - (self.Margin + 10 + 84), ScrH() - (self.Margin + 78), Color(255, 255, 255, 50), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
-    elseif (ammo != -1 and totalAmmo > 0) then
+    elseif (ammo != -1 and totalAmmo >= 0) then
         local tx, _ = draw.SimpleText(totalAmmo, NebulaUI:Font(40, true), ScrW() - (self.Margin + 10 + 84), ScrH() - (self.Margin + 74), Color(255, 255, 255, 100), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
         draw.SimpleText(ammo .. "/", NebulaUI:Font(28, true), ScrW() - (self.Margin + 12 + tx + 84), ScrH() - (self.Margin + 78), Color(255, 255, 255, 255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
 
@@ -97,7 +97,7 @@ end
 
 local disable = {
     ["DarkRP_LocalPlayerHUD"] = true,
-    ["CHudWeapon"] = true,
+    //["CHudWeapon"] = true,
     ["CHudAmmo"] = true,
     ["CHudSecondaryAmmo"] = true,
 }

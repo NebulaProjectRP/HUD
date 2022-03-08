@@ -37,7 +37,7 @@ hook.Add("HUDPaint", "NebulaRP.WeaponSelector", function()
         w = 32
         local tAlpha = alpha / 255
         if (slot != k) then
-            tAlpha = tAlpha * 0.5
+            tAlpha = tAlpha * 0.7
         end
 
         local hasCache = cachedHistory[k] != nil
@@ -62,9 +62,14 @@ hook.Add("HUDPaint", "NebulaRP.WeaponSelector", function()
                     if (i == inner) then
                         draw.RoundedBox(8, x - (w + 8) * i - 1, y - 1, w + 2, 94, Color(255, 255, 255, 15 * tAlpha))
                     end
-                    draw.RoundedBox(8, x - (w + 8) * i, y, w, 92, Color(16, 0, 24, (i == inner and 100 or 40) * tAlpha))
-                    AUTOICON_DRAWWEAPONSELECTION(control.Weapon, x - (w + 8) * i, y - 18, 128, 88, 200 * tAlpha)
-                    draw.SimpleText(control.Weapon:GetPrintName(), NebulaUI:Font(18), x - (w + 8) * i + w / 2, y + h + 12, Color(190, 94, 209, 100 * tAlpha), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+                    draw.RoundedBox(8, x - (w + 8) * i, y, w, 92, Color(16, 0, 24, (i == inner and 255 or 100) * tAlpha))
+                    AUTOICON_DRAWWEAPONSELECTION(control.Weapon, x - (w + 8) * i, y - 18, 128, 88, (i == inner and not fadeOut) and 255 or 150 * tAlpha)
+                    if (i == inner) then
+                        draw.SimpleText(control.Weapon:GetPrintName(), NebulaUI:Font(18), x - (w + 8) * i + w / 2, y + h + 12, Color(255, 255, 255, 255 * tAlpha), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+                        AUTOICON_DRAWWEAPONSELECTION(control.Weapon, x - (w + 8) * i, y - 18, 128, 88, 255 * tAlpha)
+                    else
+                        draw.SimpleText(control.Weapon:GetPrintName(), NebulaUI:Font(18), x - (w + 8) * i + w / 2, y + h + 12, Color(190, 94, 209, 255 * tAlpha), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+                    end
                 end
             end
         end
@@ -112,7 +117,9 @@ local function createCache()
     end
 end
 
+local fast = GetConVar("hud_fastswitch")
 hook.Add("PlayerBindPress", "NebulaRP.WeaponSelector", function(ply, bind, pressed)
+    if (fast:GetBool()) then return end
     if not pressed then return end
     if (active and bind == "+attack") then
         surface.PlaySound("common/wpn_hudoff.wav")
@@ -121,7 +128,7 @@ hook.Add("PlayerBindPress", "NebulaRP.WeaponSelector", function(ply, bind, press
         fadeOut = true
         hold = 0
         return true
-    elseif (active and bind == "+attack2") then
+    elseif (active and bind == "+attack2" and LocalPlayer():GetActiveWeapon():GetClass() != "gmod_camera") then
         alpha = 125
         fadeOut = true
         hold = 0
@@ -143,7 +150,10 @@ hook.Add("PlayerBindPress", "NebulaRP.WeaponSelector", function(ply, bind, press
             slot = pos
             inner = 1
         elseif (cachedHistory[pos]) then
-            inner = 1
+            inner = inner + 1
+            if (inner > table.Count(cachedHistory[pos])) then
+                inner = 1
+            end
             fadeOut = false
             hold = 0
             slot = pos
@@ -151,7 +161,12 @@ hook.Add("PlayerBindPress", "NebulaRP.WeaponSelector", function(ply, bind, press
         surface.PlaySound("ui/buttonclick.wav")
         return true
     end
+
     if (bind == "invprev" or bind == "invnext") then
+        if (input.IsMouseDown(MOUSE_LEFT) or input.IsMouseDown(MOUSE_RIGHT)) then
+            return true
+        end
+
         surface.PlaySound("common/talk.wav")
         if (not active) then
             local res = createCache()
