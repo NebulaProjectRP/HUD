@@ -12,7 +12,6 @@ local limits = {}
 
 hook.Add("HUDPaint", "NebulaRP.WeaponSelector", function()
 
-    draw.SimpleText(slot .. " " .. inner, NebulaUI:Font(32), ScrW() - 64, 96, Color(255, 255, 255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
     if not active then return end
     if (!fadeOut and alpha <= 255) then
         alpha = Lerp(FrameTime() * 4, alpha, 260)
