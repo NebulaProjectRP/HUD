@@ -103,7 +103,6 @@ local disable = {
 }
 hook.Add("HUDShouldDraw", "Nebula.HUDShouldDraw", function(el)
     if (disable[el]) then return false end
-    //MsgN(el)
 end)
 
 hook.Add("HUDPaint", "Nebula.HUD", function()
