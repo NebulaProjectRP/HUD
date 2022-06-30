@@ -99,6 +99,7 @@ local disable = {
     ["DarkRP_LocalPlayerHUD"] = true,
     //["CHudWeapon"] = true,
     ["CHudAmmo"] = true,
+    ["CHudDamageIndicator"] = true,
     ["CHudSecondaryAmmo"] = true,
 }
 hook.Add("HUDShouldDraw", "Nebula.HUDShouldDraw", function(el)
@@ -106,6 +107,8 @@ hook.Add("HUDShouldDraw", "Nebula.HUDShouldDraw", function(el)
 end)
 
 hook.Add("HUDPaint", "Nebula.HUD", function()
-    NebulaHUD:DrawLocalPlayer()
-    NebulaHUD:DrawWeaponInfo()
+    if (LocalPlayer():Alive()) then
+        NebulaHUD:DrawLocalPlayer()
+        NebulaHUD:DrawWeaponInfo()
+    end
 end)
