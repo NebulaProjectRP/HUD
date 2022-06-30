@@ -55,7 +55,7 @@ if SERVER then
     end
 
     function meta:giveDecals()
-        local decals = 3
+        local decals = 4
         local selected = true
         self._decals = {}
         for id, _ in RandomPairs(validDecals) do
