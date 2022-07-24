@@ -70,7 +70,9 @@ function NebulaHUD:DrawWeaponInfo()
         end
     end
 
-    AUTOICON_DRAWWEAPONSELECTION(wep, ScrW() - 94 - self.Margin, ScrH() - 148 - self.Margin, 86, 86, 255)
+    if (AUTOICON_DRAWWEAPONSELECTION) then
+        AUTOICON_DRAWWEAPONSELECTION(wep, ScrW() - 94 - self.Margin, ScrH() - 148 - self.Margin, 86, 86, 255)
+    end
 
     draw.SimpleText(name, NebulaUI:Font(fontSize, true), ScrW() - (self.Margin + 8), ScrH() - (46 + self.Margin), Color(223, 49, 133), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
     surface.SetDrawColor(Color(255, 255, 255, 200))
