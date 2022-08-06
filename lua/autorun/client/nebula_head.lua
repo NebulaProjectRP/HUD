@@ -102,11 +102,11 @@ plyMeta.drawPlayerInfo = function(self)
         push = push + 20
     end
 
-    if (self:getTitle() != nil and self:getTitle() != "") then
+    if (self:getTitle() != nil and self:getTitle() != "" and NebulaRanks.Ranks[self:getTitle()]) then
+        local rank = NebulaRanks.Ranks[self:getTitle()] or NebulaRanks.Ranks.default
         surface.SetDrawColor(lightWhite)
         surface.DrawOutlinedRect(pos.x, pos.y + 52 + push, healthWide, 18)
         surface.DrawRect(pos.x, pos.y + 52 + push, healthWide, 18)
-        local rank = NebulaRanks.Ranks[self:getTitle()] or NebulaRanks.Ranks.default
         surface.SetMaterial(gradient_left)
         surface.SetDrawColor(rank.Color)
         surface.DrawTexturedRect(pos.x + 1, pos.y + 53 + push, healthWide - 2, 16)
