@@ -48,9 +48,18 @@ end
 
 local back = surface.GetTextureID("nebularp/ui/weaponback")
 local savedStrings = {}
+local red = Color(255, 50, 20)
 function NebulaHUD:DrawWeaponInfo()
     local wep = LocalPlayer():GetActiveWeapon()
     if not IsValid(wep) then return end
+
+    local class = wep:GetClass()
+    if (class == "weapon_physgun" or class == "gmod_tool") then
+        local clr = LocalPlayer():GetCount("props") >= LocalPlayer():GetMaxProps() and red or color_white
+        local tx, _ = draw.SimpleText(LocalPlayer():GetMaxProps(), NebulaUI:Font(48, true), ScrW() - 36, ScrH() - 168, clr, TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
+        local tbx, _ = draw.SimpleText(LocalPlayer():GetCount("props") .. "/", NebulaUI:Font(32, true), ScrW() - 36 - tx, ScrH() - 168, clr, TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
+        draw.SimpleText("Props:", NebulaUI:Font(24), ScrW() - 36 - tx - tbx - 8, ScrH() - 168, clr, TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
+    end
 
     surface.SetTexture(back)
     surface.SetDrawColor(color_white)
