@@ -14,11 +14,12 @@ local gradient_left = Material("vgui/gradient-l")
 local icons = Material("nebularp/ui/overhead")
 local gradient_mid = Material("gui/center_gradient")
 local icon_fun = {}
+
 for k = 1, 4 do
     icon_fun[k] = GWEN.CreateTextureNormal((k - 1) * 64, 0, 64, 64, icons)
 end
-plyMeta.drawPlayerInfo = function(self)
 
+plyMeta.drawPlayerInfo = function(self)
     if not self.AvatarHUD then
         self.AvatarHUD = vgui.Create("AvatarImage")
         self.AvatarHUD:SetSize(24, 24)
@@ -30,6 +31,7 @@ plyMeta.drawPlayerInfo = function(self)
         end
         self.AvatarHUD:SetPaintedManually(true)
     end
+
     local pos = self:GetPos() + self:OBBCenter() * 1.4 + EyeAngles():Right() * 12
     pos.z = pos.z + 10 -- The position we want is a bit above the position of the eyes
     pos = pos:ToScreen()
@@ -119,7 +121,7 @@ plyMeta.drawPlayerInfo = function(self)
         surface.SetDrawColor(lightWhite)
         surface.DrawOutlinedRect(pos.x, pos.y + 52 + push, healthWide, 18)
         surface.DrawRect(pos.x, pos.y + 52 + push, healthWide, 18)
-        local ct = NebulaUI.ScoreboardTags[self:GetUserGroup()] or "User"
+        local ct = NebulaUI.UserGroupTags[self:GetUserGroup()] or "User"
         surface.SetMaterial(gradient_left)
         surface.SetDrawColor(yellow)
         surface.DrawTexturedRect(pos.x, pos.y + 53 + push, (healthWide - 8) * 1, 16)
