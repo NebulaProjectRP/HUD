@@ -38,7 +38,7 @@ function NebulaHUD:DrawLocalPlayer()
 
     local money = tostring(DarkRP.formatMoney(ply:getDarkRPVar("money")))
     local space = 0
-    draw.SimpleText("$", NebulaUI:Font(18, true), 28 + margin, ScrH() - (23 + margin), Color(130, 205, 250), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
+    draw.SimpleText("£", NebulaUI:Font(18, true), 28 + margin, ScrH() - (23 + margin), Color(130, 205, 250), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
     for k = #money, 2, -1 do
         draw.SimpleText(money[k], NebulaUI:Font(18, true), (240 + margin) - space, ScrH() - (22 + margin), Color(130, 205, 250), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
         space = space + 12
