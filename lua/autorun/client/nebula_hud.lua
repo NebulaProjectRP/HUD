@@ -54,6 +54,7 @@ function NebulaHUD:DrawWeaponInfo()
     if not IsValid(wep) then return end
 
     local class = wep:GetClass()
+
     if (class == "weapon_physgun" or class == "gmod_tool") then
         local clr = LocalPlayer():GetCount("props") >= LocalPlayer():GetMaxProps() and red or color_white
         local tx, _ = draw.SimpleText(LocalPlayer():GetMaxProps(), NebulaUI:Font(48, true), ScrW() - 36, ScrH() - 168, clr, TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
@@ -64,12 +65,12 @@ function NebulaHUD:DrawWeaponInfo()
     surface.SetTexture(back)
     surface.SetDrawColor(color_white)
     surface.DrawTexturedRect(ScrW() - (256 + self.Margin), ScrH() - (128 + self.Margin), 256, 128)
-    
+
     local name = wep:GetPrintName()
     local fontSize = savedStrings[name] or 24
     surface.SetFont(NebulaUI:Font(fontSize, true))
     local tx, _ = 0, 0
-    
+
     tx, _ = surface.GetTextSize(name)
     if (tx > 230) then
         while(tx > 230) do
