@@ -1,7 +1,4 @@
-hook.Add("HUDPaint", "NebulaHUD.DrawHead", function(ply)
-    //p(1):drawPlayerInfo()
-end)
-
+hook.Add("HUDPaint", "NebulaHUD.DrawHead", function(ply) end) --p(1):drawPlayerInfo()
 local lightRed = Color(255, 75, 0, 200)
 local lightBlue = Color(75, 150, 255, 200)
 local lightWhite = Color(0, 0, 0, 120)
@@ -24,11 +21,13 @@ plyMeta.drawPlayerInfo = function(self)
         self.AvatarHUD = vgui.Create("AvatarImage")
         self.AvatarHUD:SetSize(24, 24)
         self.AvatarHUD:SetPlayer(self, 24)
+
         self.AvatarHUD.Think = function(s)
             if not IsValid(self) then
                 s:Remove()
             end
         end
+
         self.AvatarHUD:SetPaintedManually(true)
     end
 
@@ -41,14 +40,14 @@ plyMeta.drawPlayerInfo = function(self)
         pos.y = pos.y - 50
     end
 
-    local nick = self:Nick(), self:Team()
+    local nick = self:Nick()
     surface.SetFont(NebulaUI:Font(24))
     local tx, _ = surface.GetTextSize(nick)
     surface.SetMaterial(gradient_mid)
     surface.SetDrawColor(lightWhite)
     surface.DrawTexturedRect(pos.x, pos.y + 6, math.max(tx + 8, 172), 50)
     draw.SimpleText(nick, NebulaUI:Font(24), pos.x + 25, pos.y + 1 + 8, color_black, TEXT_ALIGN_LEFT)
-    local tx, _ = draw.SimpleText(nick, NebulaUI:Font(24), pos.x + 24, pos.y + 8, color_white, TEXT_ALIGN_LEFT)
+    tx, _ = draw.SimpleText(nick, NebulaUI:Font(24), pos.x + 24, pos.y + 8, color_white, TEXT_ALIGN_LEFT)
 
     if IsValid(self.AvatarHUD) then
         self.AvatarHUD:SetSize(20, 20)
@@ -65,7 +64,8 @@ plyMeta.drawPlayerInfo = function(self)
     surface.SetMaterial(gradient_left)
     surface.SetDrawColor(lightWhite)
     surface.DrawTexturedRect(pos.x + 4, pos.y + 36, (healthWide - 8) * health / 2, 6)
-    if (armor > 0) then
+
+    if armor > 0 then
         surface.SetDrawColor(lightBlue)
         surface.DrawRect(pos.x + 4, pos.y + 36 + 8, (healthWide - 8) * armor, 6)
         surface.SetMaterial(gradient_left)
@@ -80,7 +80,7 @@ plyMeta.drawPlayerInfo = function(self)
     surface.DrawTexturedRect(pos.x, pos.y + 36, 2, 8 + push)
     surface.DrawTexturedRect(pos.x + healthWide - 2, pos.y + 36, 2, 8 + push)
 
-    if (self:hasSuit()) then
+    if self:hasSuit() then
         surface.SetDrawColor(lightWhite)
         surface.DrawOutlinedRect(pos.x, pos.y + 52 + push, healthWide, 18)
         surface.DrawRect(pos.x, pos.y + 52 + push, healthWide, 18)
@@ -92,7 +92,7 @@ plyMeta.drawPlayerInfo = function(self)
         push = push + 20
     end
 
-    if (self:getGang() != nil and self:getGang() != "") then
+    if self:getGang() ~= nil and self:getGang() ~= "" then
         surface.SetDrawColor(lightWhite)
         surface.DrawOutlinedRect(pos.x, pos.y + 52 + push, healthWide, 18)
         surface.DrawRect(pos.x, pos.y + 52 + push, healthWide, 18)
@@ -104,7 +104,7 @@ plyMeta.drawPlayerInfo = function(self)
         push = push + 20
     end
 
-    if (self:getTitle() != nil and self:getTitle() != "" and NebulaRanks.Ranks[self:getTitle()]) then
+    if self:getTitle() ~= nil and self:getTitle() ~= "" and NebulaRanks.Ranks[self:getTitle()] then
         local rank = NebulaRanks.Ranks[self:getTitle()] or NebulaRanks.Ranks.default
         surface.SetDrawColor(lightWhite)
         surface.DrawOutlinedRect(pos.x, pos.y + 52 + push, healthWide, 18)
@@ -117,7 +117,7 @@ plyMeta.drawPlayerInfo = function(self)
         push = push + 20
     end
 
-    if (self:GetUserGroup() != "user") then
+    if self:GetUserGroup() ~= "user" then
         surface.SetDrawColor(lightWhite)
         surface.DrawOutlinedRect(pos.x, pos.y + 52 + push, healthWide, 18)
         surface.DrawRect(pos.x, pos.y + 52 + push, healthWide, 18)
@@ -125,16 +125,14 @@ plyMeta.drawPlayerInfo = function(self)
         surface.SetMaterial(gradient_left)
         surface.SetDrawColor(yellow)
         surface.DrawTexturedRect(pos.x, pos.y + 53 + push, (healthWide - 8) * 1, 16)
-        local rank = NebulaRanks.Ranks[self:getTitle()] or NebulaRanks.Ranks.default
+        -- local rank = NebulaRanks.Ranks[self:getTitle()] or NebulaRanks.Ranks.default
         icon_fun[3](pos.x + 1, pos.y + 54 + push, 14, 14, color_white)
         draw.SimpleText(ct, NebulaUI:Font(18), pos.x + 18, pos.y + 50 + push, color_white, TEXT_ALIGN_LEFT)
         push = push + 18
     end
-    //draw.DrawNonParsedText(health, "DarkRPHUD2", pos.x, pos.y + 20, color_white, 1)
-
-    //if GAMEMODE.Config.showjob then
-        //local teamname = self:getDarkRPVar("job") or team.GetName(self:Team())
-     //   draw.DrawNonParsedText(teamname, "DarkRPHUD2", pos.x, pos.y + 40, color_white, 1)
-    //end
-
 end
+--draw.DrawNonParsedText(health, "DarkRPHUD2", pos.x, pos.y + 20, color_white, 1)
+--if GAMEMODE.Config.showjob then
+--local teamname = self:getDarkRPVar("job") or team.GetName(self:Team())
+--   draw.DrawNonParsedText(teamname, "DarkRPHUD2", pos.x, pos.y + 40, color_white, 1)
+--end
