@@ -127,7 +127,7 @@ plyMeta.drawPlayerInfo = function(self)
         surface.DrawTexturedRect(pos.x, pos.y + 53 + push, (healthWide - 8) * 1, 16)
         -- local rank = NebulaRanks.Ranks[self:getTitle()] or NebulaRanks.Ranks.default
         icon_fun[3](pos.x + 1, pos.y + 54 + push, 14, 14, color_white)
-        draw.SimpleText(ct, NebulaUI:Font(18), pos.x + 18, pos.y + 50 + push, color_white, TEXT_ALIGN_LEFT)
+        draw.SimpleText(ct[1], NebulaUI:Font(18), pos.x + 18, pos.y + 50 + push, color_white, TEXT_ALIGN_LEFT)
         push = push + 18
     end
 end
