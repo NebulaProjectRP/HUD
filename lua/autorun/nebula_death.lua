@@ -103,6 +103,11 @@ hook.Add("CalcView", "NebulaRP.ShowDeathCam", function(ply, pos, ang, fov, near,
     if not IsValid(ply._killerEntity) then
         ply._killerEntity = ply
     end
+
+    if not ply._killerEntity:IsPlayer() or not ply._killerEntity.GetShootPos then
+        return
+    end
+
     if not IsValid(ply:GetRagdollEntity()) then return end
 
     if (progress <= 1) then
