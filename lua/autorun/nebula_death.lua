@@ -152,6 +152,10 @@ net.Receive("NebulaRP.SendDeath", function()
     idealFov = LocalPlayer():GetFOV()
     LocalPlayer()._killerEntity = net.ReadEntity() or LocalPlayer()
 
+    if not IsValid(LocalPlayer()._killerEntity) or not LocalPlayer()._killerEntity.Nick then
+        return
+    end
+
     if IsValid(NebulaUI.DamageUI) then
         NebulaUI.DamageUI:Remove()
     end
