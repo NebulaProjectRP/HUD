@@ -60,6 +60,7 @@ hook.Add("HUDPaint", "NebulaRP.WeaponSelector", function()
                 y = y - 28
 
                 for i, control in pairs(cachedHistory[k]) do
+                    if not IsValid(control.Weapon) then continue end
                     if i == inner then
                         draw.RoundedBox(8, x - (w + 8) * i - 1, y - 1, w + 2, 94, Color(255, 255, 255, 15 * tAlpha))
                     end
@@ -70,7 +71,7 @@ hook.Add("HUDPaint", "NebulaRP.WeaponSelector", function()
                     if i == inner then
                         draw.SimpleText(control.Weapon:GetPrintName(), NebulaUI:Font(18), x - (w + 8) * i + w / 2, y + h + 12, Color(255, 255, 255, 255 * tAlpha), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
                         AUTOICON_DRAWWEAPONSELECTION(control.Weapon, x - (w + 8) * i, y - 18, 128, 88, 255 * tAlpha)
-                    else
+                    elseif IsValid(control.Weapon) then
                         draw.SimpleText(control.Weapon:GetPrintName(), NebulaUI:Font(18), x - (w + 8) * i + w / 2, y + h + 12, Color(190, 94, 209, 255 * tAlpha), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
                     end
                 end
