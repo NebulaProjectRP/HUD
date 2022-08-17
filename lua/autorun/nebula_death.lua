@@ -152,7 +152,12 @@ net.Receive("NebulaRP.SendDeath", function()
     idealFov = LocalPlayer():GetFOV()
     LocalPlayer()._killerEntity = net.ReadEntity() or LocalPlayer()
 
+    if IsValid(NebulaUI.DamageUI) then
+        NebulaUI.DamageUI:Remove()
+    end
+
     local pnl = vgui.Create("DPanel")
+    NebulaUI.DamageUI = pnl
     local idealY = ScrH() - 196
     if IsValid(NebulaUI.DamageUI) then
         idealY = ScrH() - 196 - 72
