@@ -130,6 +130,10 @@ hook.Add("PlayerBindPress", "NebulaRP.WeaponSelector", function(ply, bind, press
     if fast:GetBool() then return end
     if not pressed then return end
 
+    if IsValid(NebulaTarot.CardHUD) and NebulaTarot.CardHUD.ShouldDisplay then
+        return
+    end
+
     if active and bind == "+attack" then
         surface.PlaySound("common/wpn_hudoff.wav")
         RunConsoleCommand("use", cachedHistory[slot][inner].Weapon:GetClass())
