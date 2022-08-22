@@ -44,6 +44,9 @@ function NebulaHUD:DrawLocalPlayer()
         space = space + 12
     end
 
+    if (LocalPlayer():InArena()) then
+        draw.SimpleText("You are in hostile territory, watch out...", NebulaUI:Font(18), ScrW() / 2, 128, Color(255, 0, 0), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+    end
 end
 
 local back = surface.GetTextureID("nebularp/ui/weaponback")
