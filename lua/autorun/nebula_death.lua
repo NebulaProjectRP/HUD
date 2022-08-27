@@ -1,4 +1,4 @@
-local validDecals = {}
+validDecals = {}
 local meta = FindMetaTable("Player")
 
 if SERVER then
