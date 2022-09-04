@@ -39,7 +39,6 @@ function meta:setDeathDecal(decal)
         net.WriteString(decal)
         net.SendToServer()
     else
-        MsgN("Saving decal")
         self:saveDecal()
     end
 end
