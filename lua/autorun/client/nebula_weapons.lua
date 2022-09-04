@@ -5,8 +5,8 @@ local alpha = 0
 local hold = 0
 local active = false
 local fadeOut = false
-local w = 16
-local h = 64
+local w = 96
+local h = 48
 local limits = {}
 
 hook.Add("HUDPaint", "NebulaRP.WeaponSelector", function()
@@ -35,7 +35,7 @@ hook.Add("HUDPaint", "NebulaRP.WeaponSelector", function()
     local totalHeight = 8
 
     for k = 1, 6 do
-        w = 32
+        w = 96
         local tAlpha = alpha / 255
 
         if slot ~= k then
@@ -43,8 +43,8 @@ hook.Add("HUDPaint", "NebulaRP.WeaponSelector", function()
         end
 
         local hasCache = cachedHistory[k] ~= nil
-        totalHeight = totalHeight + (not hasCache and 16 or (h + 8))
-        local x, y = ScrW() - NebulaHUD.Margin - w, ScrH() - NebulaHUD.Margin - 128 - totalHeight
+        totalHeight = totalHeight + (not hasCache and 16 or (w + 8))
+        local x, y = ScrW() / 2 - w * 4.5 + totalHeight, 32
 
         if not hasCache then
             tAlpha = tAlpha * 0.5
@@ -57,22 +57,23 @@ hook.Add("HUDPaint", "NebulaRP.WeaponSelector", function()
 
             if slot == k then
                 w = 128
-                y = y - 28
+                y = y + 52
+                x = x - w * 1 - 8
 
                 for i, control in pairs(cachedHistory[k]) do
                     if not IsValid(control.Weapon) then continue end
                     if i == inner then
-                        draw.RoundedBox(8, x - (w + 8) * i - 1, y - 1, w + 2, 94, Color(255, 255, 255, 15 * tAlpha))
+                        draw.RoundedBox(8, x + (w + 8) * i - 1, y - 1, w + 2, 94, Color(255, 255, 255, 15 * tAlpha))
                     end
 
-                    draw.RoundedBox(8, x - (w + 8) * i, y, w, 92, Color(16, 0, 24, (i == inner and 255 or 100) * tAlpha))
-                    AUTOICON_DRAWWEAPONSELECTION(control.Weapon, x - (w + 8) * i, y - 18, 128, 88, (i == inner and not fadeOut) and 255 or 150 * tAlpha)
+                    draw.RoundedBox(8, x + (w + 8) * i, y, w, 92, Color(16, 0, 24, (i == inner and 255 or 100) * tAlpha))
+                    AUTOICON_DRAWWEAPONSELECTION(control.Weapon, x + (w + 8) * i, y - 18, 128, 88, (i == inner and not fadeOut) and 255 or 150 * tAlpha)
 
                     if i == inner then
-                        draw.SimpleText(control.Weapon:GetPrintName(), NebulaUI:Font(18), x - (w + 8) * i + w / 2, y + h + 12, Color(255, 255, 255, 255 * tAlpha), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-                        AUTOICON_DRAWWEAPONSELECTION(control.Weapon, x - (w + 8) * i, y - 18, 128, 88, 255 * tAlpha)
+                        draw.SimpleText(control.Weapon:GetPrintName(), NebulaUI:Font(18), x + (w + 8) * i + w / 2, y + h + 28, Color(255, 255, 255, 255 * tAlpha), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+                        AUTOICON_DRAWWEAPONSELECTION(control.Weapon, x + (w + 8) * i, y - 18, 128, 88, 255 * tAlpha)
                     elseif IsValid(control.Weapon) then
-                        draw.SimpleText(control.Weapon:GetPrintName(), NebulaUI:Font(18), x - (w + 8) * i + w / 2, y + h + 12, Color(190, 94, 209, 255 * tAlpha), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+                        draw.SimpleText(control.Weapon:GetPrintName(), NebulaUI:Font(18), x + (w + 8) * i + w / 2, y + h + 28, Color(190, 94, 209, 255 * tAlpha), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
                     end
                 end
             end
@@ -101,7 +102,7 @@ local function createCache()
     end
 
     for k, v in pairs(cachedHistory) do
-        table.sort(v, function(a, b) return a.Slot < b.Slot end)
+        table.sort(v, function(a, b) return a.Slot > b.Slot end)
     end
 
     local wep = ply:GetActiveWeapon()
