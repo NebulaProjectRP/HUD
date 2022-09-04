@@ -48,8 +48,9 @@ hook.Add("HUDPaint", "NebulaRP.WeaponSelector", function()
 
         if not hasCache then
             tAlpha = tAlpha * 0.5
-            draw.RoundedBox(4, x, y, w, 8, Color(255, 255, 255, 10 * tAlpha))
-            draw.RoundedBox(4, x + 1, y + 1, w - 2, 6, Color(16, 0, 24, 250 * tAlpha))
+            x = x + w * 1 - 8
+            draw.RoundedBox(4, x, y, 8, h, Color(255, 255, 255, 10 * tAlpha))
+            draw.RoundedBox(4, x + 1, y + 1, 6, h - 2, Color(16, 0, 24, 250 * tAlpha))
         else
             draw.RoundedBox(8, x, y, w, h, Color(255, 255, 255, 10 * tAlpha))
             draw.RoundedBox(8, x + 1, y + 1, w - 2, h - 2, Color(16, 0, 24, 250 * tAlpha))
