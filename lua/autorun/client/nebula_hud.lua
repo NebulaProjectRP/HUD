@@ -37,7 +37,7 @@ function NebulaHUD:DrawWeaponInfo()
 
     surface.SetDrawColor(color_white)
     surface.SetMaterial(darkCircle)
-    surface.DrawTexturedRectUV(ScrW() - 600, ScrH() - 200, 600, 512, 1, 0, 0, 1)
+    surface.DrawTexturedRectUV(ScrW() - 400, ScrH() - 200, 400, 512, 1, 0, 0, 1)
 
     local class = wep:GetClass()
     local isBuilder = class == "weapon_physgun" or class == "gmod_tool"
