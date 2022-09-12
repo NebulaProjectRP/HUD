@@ -171,10 +171,18 @@ function NebulaHUD:DrawPlayer()
     ply_avatar.LayoutEntity = function() end
 
     ply_avatar:SetFOV(35)
-    local headPos, _ = ply_avatar.Entity:GetBonePosition(ply_avatar.Entity:LookupBone("ValveBiped.Bip01_Head1"))
-    local radius = ply_avatar.Entity:GetModelRadius()
-    ply_avatar:SetCamPos(headPos + Vector(radius / 2, -radius / 3, 0))
-    ply_avatar:SetLookAt(headPos)
+    local boneid = ply_avatar.Entity:LookupBone("ValveBiped.Bip01_Head1")
+    if boneid then
+        local headPos, _ = ply_avatar.Entity:GetBonePosition(boneid)
+        local radius = ply_avatar.Entity:GetModelRadius()
+        ply_avatar:SetCamPos(headPos + Vector(radius / 2, -radius / 3, 0))
+        ply_avatar:SetLookAt(headPos)
+    else
+        local headPos = Vector(0, 0, 68)
+        local radius = ply_avatar.Entity:GetModelRadius()
+        ply_avatar:SetCamPos(headPos + Vector(radius / 2, -radius / 3, 0))
+        ply_avatar:SetLookAt(headPos)
+    end
     ply_avatar:SetPaintedManually(true)
 
     cam.IgnoreZ(true)
