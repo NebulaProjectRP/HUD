@@ -17,6 +17,9 @@ for k = 1, 4 do
 end
 
 plyMeta.drawPlayerInfo = function(self)
+
+    if (self:GetColor().a < 50) then return end
+
     if not self.AvatarHUD then
         self.AvatarHUD = vgui.Create("AvatarImage")
         self.AvatarHUD:SetSize(24, 24)
