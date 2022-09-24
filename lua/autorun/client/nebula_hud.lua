@@ -1,8 +1,5 @@
 NebulaHUD = {}
 
-local playerinfo = Material("nebularp/ui/background.vmt")
-local playerLid = Material("nebularp/ui/lid.vmt")
-local gradient = Material("vgui/gradient-l")
 
 local img_path = "NebulaHUD.Player" .. os.time()
 local avatar_rt = GetRenderTargetEx(img_path, 256, 256, -1, MATERIAL_RT_DEPTH_SHARED, 512, 0, -1)
@@ -27,8 +24,8 @@ local lastKnownModel
 
 NebulaHUD.Margin = 32
 
-local back = surface.GetTextureID("nebularp/ui/weaponback")
 local savedStrings = {}
+local bright = Color(220, 220, 220)
 local red = Color(255, 50, 20)
 local purple = Color(223, 49, 133)
 function NebulaHUD:DrawWeaponInfo()
@@ -81,14 +78,14 @@ function NebulaHUD:DrawWeaponInfo()
         draw.SimpleText("NO AMMO", NebulaUI:Font(32, true), ScrW() - 16, ScrH() - 8, Color(255, 255, 255, 50), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
     elseif (ammo != -1 and totalAmmo >= 0) then
         local tx, _ = draw.SimpleText(totalAmmo, NebulaUI:Font(40, true), ScrW() - 16, ScrH() - 6, Color(255, 255, 255, 100), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
-        draw.SimpleText(ammo .. "/", NebulaUI:Font(28, true), ScrW() - 20 - tx, ScrH() - 6, Color(255, 255, 255, 255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
+        draw.SimpleText(ammo .. "/", NebulaUI:Font(28, true), ScrW() - 20 - tx, ScrH() - 6, color_white, TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
 
         local amount = ammo / maxammo
         local pulse = math.cos(RealTime() * 8)
-        draw.RoundedBox(0, ScrW() - 272, ScrH() - 46, 256 - tx - 8, 8, Color(0, 0, 0, 255))
-        draw.RoundedBox(0, ScrW() - 271, ScrH() - 45, (254 - tx - 8) * math.Clamp(amount, 0, 1), 6, amount < .35 and Color(255, 150 + 105 * pulse, 150 + 105 * pulse) or Color(220, 220, 220))
+        draw.RoundedBox(0, ScrW() - 272, ScrH() - 46, 256 - tx - 8, 8, color_black)
+        draw.RoundedBox(0, ScrW() - 271, ScrH() - 45, (254 - tx - 8) * math.Clamp(amount, 0, 1), 6, amount < .35 and Color(255, 150 + 105 * pulse, 150 + 105 * pulse) or bright)
     elseif (ammo == -1 and totalAmmo > 0) then
-        draw.SimpleText(totalAmmo, NebulaUI:Font(42, true), ScrW() - 16, ScrH() - 6, Color(255, 255, 255, 255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
+        draw.SimpleText(totalAmmo, NebulaUI:Font(42, true), ScrW() - 16, ScrH() - 6, color_white, TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
     end
 end
 

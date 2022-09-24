@@ -1,0 +1,12 @@
+"Modulate" {
+    "$basetexture "nebularp/ui/duel_lines"
+    "$mod2x" "1"
+    "$additive" "1"
+    "Proxies" {
+        "AnimatedTexture" {
+            "animatedtexturevar" "$basetexture"
+            "animatedtextureframenumvar" "$frame"
+            "animatedtextureframerate" "8"
+        }
+    }
+}
